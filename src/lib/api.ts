@@ -1,6 +1,6 @@
 import { AppState, User, RecordItem } from '../types';
 
-export const getGasUrl = () => ((import.meta as any).env?.VITE_GAS_API_URL || 'https://script.google.com/macros/s/AKfycbyjvLS4tr80g9TqdVfcdZGGqov9ClbDZjm8JD477I9pE7H_dPcO2qXqCoOUK_q57ltr_A/exec');
+export const getGasUrl = () => ((import.meta as any).env?.VITE_GAS_API_URL || 'https://script.google.com/macros/s/AKfycbyVJktUQGRo2ykDcAEFc_DWcHIbKNqBDiz939nvoAfebH7Um8Rr5_VJHyCELN2XfrM/exec');
 
 export function formatDateTime(isoString: string | undefined | null) {
   if (!isoString) return '';
