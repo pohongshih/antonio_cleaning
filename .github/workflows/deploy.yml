@@ -1,0 +1,31 @@
+name: 🚀 Build and Sync to FTP
+on:
+  push:
+    branches:
+      - main # 當 main 分支收到 push 時觸發。如果你的主分支叫 master，請改為 master
+jobs:
+  build-and-deploy:
+    name: 🏗️ Cloud Build & 🎉 FTP Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 1. 下載儲存庫程式碼
+        uses: actions/checkout@v4
+
+      - name: 🟢 2. 設定 Node.js 環境
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 📦 3. 用 npm 安裝套件並打包
+        run: |
+          npm install --legacy-peer-deps
+          npm run build 
+
+      - name: 📂 4. 將打包產物 (dist) 同步至 FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/ # 只把 dist 資料夾裡面的 assets 和 index.html 傳上去
+          server-dir: ./cleaning_antonio/
